@@ -10,6 +10,11 @@ urlpatterns = [ # 서버IP/product/
     # path('<int:id>/<product_slug>/', product_detail,
     #      name='product_detail'),
 
-    path('', views.product_in_category),
-    path('<int:pk>/', views.product_detail)
+    # FBV
+    # path('', views.product_in_category),
+    # path('<int:pk>/', views.product_detail)
+
+    # CBV
+    path('', views.ProductList.as_view()),
+    path('<int:pk>/', views.ProductDetail.as_view()),
 ]
