@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+</head>
+<body>
+    <h1>Product</h1>
+
+    {% for p in products %}
+        <hr/>
+        <h3> {{ p }}</h3>
+        <h2> <a href="{{ p.get_absolute_url }}"> {{p }}</a></h2>
+    {% endfor %}
+</body>
+</html>
