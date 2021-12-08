@@ -11,5 +11,6 @@ urlpatterns = [ # 서버IP/product/
     #      name='product_detail'),
 
     path('', views.landing),    # 대문페이지
-    path('about_me/', views.about_me)   # 서버IP/about_me
+    path('mypage/', views.mypage),   # 서버IP/mypage/
+    path('about/', views.about)   # 서버IP/about
 ]
