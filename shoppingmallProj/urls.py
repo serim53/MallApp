@@ -1,5 +1,4 @@
 """shoppingmallProj URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
 Examples:
@@ -21,7 +20,9 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('product/', include('product.urls')),
-    path('', include('single_pages.urls'))  # 서버IP/
+    path('', include('single_pages.urls')),  # 서버IP/
+    path('accounts/', include('allauth.urls')),
+    path('markdownx/', include('markdownx.urls'))
 ]
 
 # url : IP주소/media
