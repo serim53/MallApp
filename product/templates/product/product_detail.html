@@ -12,7 +12,7 @@
         <!-- 기본 bootstrap 적용 -->
         <link rel="icon" type="image/x-icon" href="{% static 'product/bootstrap/assets/favicon.ico' %}" />
         <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/3ff2e03039.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
@@ -50,8 +50,7 @@
                         <div class="fs-5 mb-5">
                             <span>{{product.price}}원</span>
                         </div>
-                        <p class="lead">{{product.description}}</p>
-                        <div class="small mb-1">{{product.meta_description}}</div>
+                        <p class="lead">{{product.get_content_markdown | safe}}</p>
 <!--                        <div class="d-flex">-->
 <!--                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />-->
 <!--                            <button class="btn btn-outline-dark flex-shrink-0" type="button">-->
@@ -59,6 +58,16 @@
 <!--                                Add to cart-->
 <!--                            </button>-->
 <!--                        </div>-->
+
+                                {% if user.is_authenticated %}
+                                    {% if user.is_staff or user.is_superuser %}
+                                        <a href="/product/update_product/{{product.id}}/"
+                                            class="btn btn-info btn-sm float-right" style="background-color:#F6E1C5; border-color:#E6A756">
+                                            <i class="fas fa-pen"></i>
+                                            Edit Post
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
                     </div>
                 </div>
 <!--                &lt;!&ndash; Post content&ndash;&gt;-->
@@ -88,7 +97,7 @@
 <!--                        </section>-->
 <!--                    </div>-->
                     <!-- Comments section-->
-                    <div class="mb-5" id="comment-area">
+                    <div class="mb-5 my-5" id="comment-area">
                         <div class="card bg-light">
                             <div class="card-body">
                                 <!-- Comment form-->
@@ -98,7 +107,7 @@
                                     <div class="form-group">
                                         {{comment_form | crispy}}
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary my-3">Submit</button>
                                 </form>
                                 {% else %}
                                 <a role="button" class="btn btn-outline-dark" href="#"

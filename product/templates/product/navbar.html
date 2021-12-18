@@ -9,7 +9,7 @@
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/about/">About</a></li>
                 <li class="nav-item px-lg-4">
 <!--                    <a class="nav-link text-uppercase" href="/product/">Products</a>-->
-                    <a class="nav-link dropdown-toggle" href="/product/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Products
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -19,7 +19,7 @@
                                 <a class="dropdown-item" href="/product/category/{{c.slug}}">{{c}}</a>
                                 <div class="dropdown-divider"></div>
                                 {% endfor %}
-                                <a class="dropdown-item" href="/product/category/no_category">미분류 ({{no_category_post_count}})</a>
+                                <a class="dropdown-item" href="/product/category/no_category">미분류</a>
                             </div>
                 </li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/mypage/">MyPage</a></li>

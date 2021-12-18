@@ -12,5 +12,5 @@ urlpatterns = [ # 서버IP/product/
 
     path('', views.landing),    # 대문페이지
     path('mypage/', views.mypage),   # 서버IP/mypage/
-    path('about/', views.about)   # 서버IP/about
+    path('about/', views.about),   # 서버IP/about
 ]

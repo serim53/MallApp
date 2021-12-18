@@ -10,7 +10,7 @@
         <!-- 기본 bootstrap 적용 -->
         <link rel="icon" type="image/x-icon" href="{% static 'product/bootstrap/assets/favicon.ico' %}" />
         <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/3ff2e03039.js" crossorigin="anonymous"></script>
        <script>
         $(function(){
           $(".zeta-menu li").click(function(){
@@ -32,13 +32,6 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'product/bootstrap/css/styles.css' %}" rel="stylesheet" />
 
-<!--        &lt;!&ndash; itembootstrap 적용 &ndash;&gt;-->
-<!--        &lt;!&ndash; Favicon&ndash;&gt;-->
-<!--        <link rel="icon" type="image/x-icon" href="{% static 'product/itembootstrap/assets/favicon.ico' %}" />-->
-<!--        &lt;!&ndash; Bootstrap icons&ndash;&gt;-->
-<!--        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />-->
-<!--        &lt;!&ndash; Core theme CSS (includes Bootstrap)&ndash;&gt;-->
-<!--        <link href="{% static 'product/itembootstrap/css/styles.css' %}" rel="stylesheet" />-->
     </head>
     <body>
         <header>
@@ -50,9 +43,18 @@
         </header>
 
         {% include 'product/navbar.html' %}
+
         <!-- Section-->
-        <section style="background:white" class="py-5">
+        <section style="background:white" class="py-2">
+
             <div class="container px-4 px-lg-5 mt-5">
+                {% if user.is_authenticated %}
+                    {% if user.is_staff or user.is_superuser %}
+                        <a class="btn btn-info btn-small float-right my-3" href="/product/create_product" style="background-color:#E6A756; border-color:#E6A756">
+                            <i class="fas fa-pen">New Post</i>
+                        </a>
+                    {% endif %}
+                {% endif %}
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     {% if product_list.exists %}
                     {% for p in product_list %}

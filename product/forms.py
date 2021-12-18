@@ -4,5 +4,5 @@ from django import forms
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        Fields = ('content',)
+        fields = ('content',)
         exclude = []
