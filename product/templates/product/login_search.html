@@ -2,8 +2,8 @@
 <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">-->
 <!--  Open modal-->
 <!--</button>-->
-
-{% if user.is_authenticated %}
+<nav class="navbar justify-content-between">
+  {% if user.is_authenticated %}
   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     {% if user.socialaccount_set.all.0.get_avatar_url %}
     <img class="rounded-circle" width="25px"
@@ -24,6 +24,12 @@
     Log In
   </button>
 {% endif %}
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</nav>
+
 <!--<div>-->
 <!--  <form class="form-inline my-2 my-lg-0">-->
 <!--      <input class="form-control mr-sm-2" type="search" placeholder="Search">-->

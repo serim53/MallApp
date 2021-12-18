@@ -17,4 +17,11 @@ urlpatterns = [ # 서버IP/product/
     # CBV
     path('', views.ProductList.as_view()),
     path('<int:pk>/', views.ProductDetail.as_view()),
+    #
+    # path('search/<str:q>/', views.PostSearch.as_view()),
+    # path('update_post/<int:pk>/', views.PostUpdate.as_view()),
+    path('create_product/', views.ProductCreate.as_view()),
+    # path('tag/<str:slug>', views.tag_page),
+    path('category/<str:slug>', views.category_page), # 서버 ip/blog/category/slug
+    path('<int:pk>/new_comment/', views.new_comment),
 ]
