@@ -30,6 +30,21 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
+class Manufacturer(models.Model):
+    name = models.CharField(max_length=200, unique=True, db_index=True)
+    slug = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True)
+    address = models.CharField(max_length=200)
+    number = models.CharField(max_length=200)
+    site = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/product/manufacturer/{self.slug}'
+
+    class Meta:
+        verbose_name_plural = 'Manufacturers'
 
 class Product(models.Model):
     category = models.ForeignKey(Category,
@@ -41,6 +56,8 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    manufacturer = models.ForeignKey(Manufacturer,
+            null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ['-created', '-updated']
@@ -72,3 +89,4 @@ class Comment(models.Model):
             return self.author.socialaccount_set.first().get_avatar_url()
         else :
             return 'https://doitdjango.com/avatar/id/435/34def6c20b3733a7/svg/{self.author.email}/'
+

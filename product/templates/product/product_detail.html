@@ -47,6 +47,11 @@
                             <span class="badge bg-secondary float-right">미분류</span>
                             {% endif %}
                         <h1 class="display-5 fw-bolder mt-3" style="color:black">{{product.name}}</h1>
+                        {% if product.manufacturer %}
+                        <h5 class="display-5 fw-bolder mt-3" style="color:black">{{product.manufacturer}}</h5>
+                        {% else %}
+                        <h5 class="display-5 fw-bolder mt-3" style="color:black">미분류</h5>
+                        {% endif %}
                         <div class="fs-5 mb-5">
                             <span>{{product.price}}원</span>
                         </div>

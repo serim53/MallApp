@@ -106,6 +106,8 @@ class ProductList(ListView):
         context = super(ProductList, self).get_context_data()
         context['categories'] = Category.objects.all()
         context['no_category_post_count'] = Product.objects.filter(category=None).count()
+        context['manufacturers'] = Manufacturer.objects.all()
+        context['no_manufacturer_post_count'] = Product.objects.filter(manufacturer=None).count()
         return context
 
 
@@ -116,6 +118,8 @@ class ProductDetail(DetailView):
         context = super(ProductDetail, self).get_context_data()
         context['categories'] = Category.objects.all()
         context['no_category_post_count'] = Product.objects.filter(category=None).count()
+        context['manufacturers'] = Manufacturer.objects.all()
+        context['no_manufacturer_post_count'] = Product.objects.filter(manufacturer=None).count()
         context['comment_form'] = CommentForm
         return context
 
@@ -154,6 +158,24 @@ def category_page(request, slug):
         'categories': Category.objects.all(),
         'no_category_post_count': Product.objects.filter(category=None).count(),
         'category': category
+    })
+
+def manufacturer_page(request, slug):
+    categories = Category.objects.all()
+    if slug == 'no_manufacturer':
+        manufacturer = '미분류'
+        product_list = Product.objects.filter(manufacturer=None)
+    else:
+        manufacturer = Manufacturer.objects.get(slug=slug)
+        product_list = Product.objects.filter(manufacturer=manufacturer)
+
+    return render(request, 'product/product_list.html', {
+
+        'product_list': product_list,
+        'manufacturers': Manufacturer.objects.all(),
+        'no_manufacturer_post_count': Product.objects.filter(manufacturer=None).count(),
+        'manufacturer': manufacturer,
+        'categories': categories
     })
 #
 # def tag_page(request, slug):

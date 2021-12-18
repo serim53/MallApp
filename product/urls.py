@@ -23,5 +23,6 @@ urlpatterns = [ # 서버IP/product/
     path('create_product/', views.ProductCreate.as_view()),
     # path('tag/<str:slug>', views.tag_page),
     path('category/<str:slug>', views.category_page), # 서버 ip/blog/category/slug
+    path('manufacturer/<str:slug>', views.manufacturer_page),
     path('<int:pk>/new_comment/', views.new_comment),
 ]
