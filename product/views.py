@@ -24,7 +24,7 @@ def new_comment(request, pk):
             comment_form = CommentForm(request.POST)
             if comment_form.is_valid():
                 comment = comment_form.save(commit=False)
-                comment.post = post
+                comment.product = post
                 comment.author = request.user
                 comment.save()
                 return redirect(comment.get_absolute_url())
@@ -32,6 +32,7 @@ def new_comment(request, pk):
             return redirect(post.get_absolute_url())
     else:
         raise PermissionDenied
+
 
 
 # Create your views here.

@@ -89,4 +89,3 @@ class Comment(models.Model):
             return self.author.socialaccount_set.first().get_avatar_url()
         else :
             return 'https://doitdjango.com/avatar/id/435/34def6c20b3733a7/svg/{self.author.email}/'
-

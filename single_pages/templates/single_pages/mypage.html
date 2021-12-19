@@ -13,6 +13,11 @@
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+
+        <!--폰트-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo:wght@400;800&display=swap" rel="stylesheet">
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'product/bootstrap/css/styles.css' %}" rel="stylesheet" />
     </head>
@@ -38,24 +43,6 @@
                                 <span class="section-heading-upper mt-3" style="font-weight: 500;">{{user.email}}</span>
                             </h2>
                             <ul class="list-unstyled list-hours mb-5 text-left mx-auto">
-
-<!--                                {% if product.comment_set.exists %}-->
-<!--                                {% for comment in product.comment_set.all %}-->
-<!--                                &lt;!&ndash; Single comment&ndash;&gt;-->
-<!--                                <div class="d-flex" id="comment-{{comment.pk}}">-->
-<!--                                    <div class="flex-shrink-0">-->
-<!--                                        <img class="rounded-circle" src="{{comment.get_avatar_url}}" alt="{{comment.author}}" width="60px" />-->
-<!--                                    </div>-->
-<!--                                    <div class="ms-3">-->
-<!--                                        <div class="fw-bold">{{comment.author.username}} &nbsp;&nbsp;&nbsp;-->
-<!--                                            <small class="text-muted">{{comment.created_at}}</small></div>-->
-<!--                                        <p>{{comment.content | linebreaks}}</p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                {% endfor %}-->
-<!--                                {% endif %}-->
-
-
                                 {% for comment in recent_comments %}
                                 {% if user.username == comment.author.username %}
                                 <li class="list-unstyled-item list-hours-item d-flex">

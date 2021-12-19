@@ -13,8 +13,18 @@
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+
+        <!--나눔고딕-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;800&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo:wght@400;800&display=swap" rel="stylesheet">
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'product/bootstrap/css/styles.css' %}" rel="stylesheet" />
+
     </head>
     <body>
         <header>
@@ -45,32 +55,61 @@
                 </div>
             </div>
         </section>
-        <section class="page-section cta">
+<!--        <section class="page-section cta">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-xl-9 mx-auto">-->
+<!--                        <div class="col-lg-5">-->
+<!--                          <h2 class="text-light">Recent Product</h2>-->
+<!--                          {% for post in recent_posts %}-->
+<!--                          <div class="card mt-1">-->
+<!--                              <div class="cta-inner bg-faded text-center rounded">-->
+<!--                                  <img style="height:250px;" class="card-img-top" src="{{ post.image.url }}" alt="{{post}}의 head image" />-->
+<!--                                  <h6><a href="{{post.get_absolute_url}}" class="text-decoration-none text-dark">{{post.name}}</a></h6>-->
+<!--                                  </div>-->
+<!--                          </div>-->
+<!--                          {% endfor %}-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            </div>-->
+<!--        </section>-->
+<!--        -->
+
+         <section class="page-section cta">
             <div class="container">
-                <div class="row">
-                    <div class="col-xl-9 mx-auto">
-                        <div class="col-lg-5">
-                          <h2 class="text-light">Recent Product</h2>
-                          {% for post in recent_posts %}
-                          <div class="card mt-1">
-                              <div class="cta-inner bg-faded text-center rounded">
-                                  <img style="height:250px;" class="card-img-top" src="{{ post.image.url }}" alt="{{post}}의 head image" />
-                                  <h6><a href="{{post.get_absolute_url}}" class="text-decoration-none text-dark">{{post.name}}</a></h6>
-                                  </div>
-                          </div>
-                          {% endfor %}
-<!--                        <div class="cta-inner bg-faded text-center rounded">-->
-<!--                            <h2 class="section-heading mb-4">-->
-<!--                                <span class="section-heading-upper">Our Promise</span>-->
-<!--                                <span class="section-heading-lower">To You</span>-->
-<!--                            </h2>-->
-<!--                            <p class="mb-0">When you walk into our shop to start your day, we are dedicated to providing you with friendly service, a welcoming atmosphere, and above all else, excellent products made with the highest quality ingredients. If you are not satisfied, please let us know and we will do whatever we can to make things right!</p>-->
-<!--                        </div>-->
+                <div class="row gx-5">
+                    {% for post in recent_posts %}
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <img style="height:250px;" class="card-img-top" src="{{ post.image.url }}" alt="{{post}}의 head image" />
+                            </div>
+                            <div class="card-footer" style="background-color:#F6E1C5">
+                                <a href="{{post.get_absolute_url}}" class="text-decoration-none text-dark">
+                                    <h5 class="card-title">{{post.name}}</h5>
+                                </a>
+                                <p class="card-text">{{post.manufacturer}}</p>
+                            </div>
+                        </div>
+
+
+
+
                     </div>
+                    {% endfor %}
                 </div>
             </div>
-            </div>
         </section>
+
+
+
+
+
+
+
+
 <!--        <footer class="footer text-faded text-center py-5">-->
 <!--            <div class="container"><p class="m-0 small">Copyright &copy; Your Website 2021</p></div>-->
 <!--        </footer>-->

@@ -11,6 +11,11 @@
         <link rel="icon" type="image/x-icon" href="{% static 'product/bootstrap/assets/favicon.ico' %}" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://kit.fontawesome.com/3ff2e03039.js" crossorigin="anonymous"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo:wght@400;800&display=swap" rel="stylesheet">
+
        <script>
         $(function(){
           $(".zeta-menu li").click(function(){
@@ -60,6 +65,34 @@
                     <a href="/product/manufacturer/{{m.slug}}" class="btn btn-light bg-secondary float-right" style="color:white">{{m.name}}</a>
 <!--                    <span class="badge bg-secondary float-right">{{m.name}}</span>-->
                 {% endfor %}
+
+
+                {% if manufacturer %}
+                    <div class="container my-4">
+                        <div class="about-heading-content">
+                            <div class="row">
+                                <div class="col-xl-9 col-lg-10 mx-auto">
+                                    <div class="bg-faded rounded p-5">
+                                        <h2 class="section-heading mb-4">
+<!--                                            <span class="section-heading-upper">편안하고 데일리한</span>-->
+                                            <span class="section-heading-lower">{{manufacturer.name}}</span>
+                                        </h2>
+                                        <p>{{manufacturer.address}}</p>
+                                        <p>{{manufacturer.number}}</p>
+                                        <p class="mb-0">
+                                            <a href="{{manufacturer.site}}" class="btn btn-light bg-secondary float-right" style="color:white">
+                                               {{manufacturer.site}}
+                                            </a>
+
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endif %}
+
                 <div class="row my-3 gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     {% if product_list.exists %}
                     {% for p in product_list %}
@@ -83,7 +116,7 @@
                                       {% endif %}
                                     <h5 class="fw-bolder pt-3">{{p.name | upper}}</h5>
                                     <!-- Product price-->
-                                    {{p.price}}
+                                    {{p.price}}원
                                     <div class="pl-2 pt-4">{{p.name | upper}}</div>
                                 </div>
                             </div>
