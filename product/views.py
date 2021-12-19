@@ -3,6 +3,8 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
+
+from .forms_cart import CartForm
 from .models import Product, Category
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CommentForm
@@ -12,11 +14,6 @@ from .models import Product
 # Create your views here.
 from .models import *
 
-
-# def index(request) :
-#     products = Product.objects.all()
-#     return render(request, 'product/product_list.html')
-#
 def new_comment(request, pk):
     if request.user.is_authenticated:
         post = get_object_or_404(Product, pk=pk)
@@ -33,6 +30,22 @@ def new_comment(request, pk):
     else:
         raise PermissionDenied
 
+
+def new_cart(request, pk):
+    if request.user.is_authenticated:
+        post = get_object_or_404(Product, pk=pk)
+        if request.method == 'POST':
+            comment_form = CartForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.product = post
+                comment.author = request.user
+                comment.save()
+                return redirect("/mypage/")
+        else:
+            return redirect(post.get_absolute_url())
+    else:
+        raise PermissionDenied
 
 
 # Create your views here.
@@ -68,33 +81,6 @@ class ProductUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):  # 모
             return super(ProductUpdate, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
-
-    # def get_context_data(self, *, object_list=None, **kwargs):
-    #     context = super(ProductUpdate,self).get_context_data()
-    #     if self.object.tags.exists() :
-    #         tags_str_list = list()
-    #         for t in self.object.tags.all() :
-    #             tags_str_list.append(t.name)
-    #         context['tag_str_default'] = '; '.join(tags_str_list)
-    #     return context
-
-    # def form_valid(self, form):
-    #     response = super(ProductUpdate, self).form_valid(form)
-    #     self.object.tags.clear()
-    #     tags_str = self.request.POST.get('tags_str')
-    #     if tags_str:
-    #         tags_str = tags_str.strip()
-    #         tags_str = tags_str.replace(',', ';')
-    #         tags_list = tags_str.split(';')
-    #         for t in tags_list:
-    #             t = t.strip()
-    #             tag, is_tag_created = Tag.objects.get_or_create(name=t)
-    #             if is_tag_created:
-    #                 tag.slug = slugify(t, allow_unicode=True)
-    #                 tag.save()
-    #             self.object.tags.add(tag)
-    #     return response
-
 
 class ProductList(ListView):
     model = Product
@@ -133,7 +119,7 @@ class ProductSearch(ProductList):
     def get_queryset(self):
         q = self.kwargs['q']
         product_list = Product.objects.filter(
-            Q(name__contains=q)
+            Q(name__contains=q) | Q(manufacturer__name__contains=q) | Q(category__name__contains=q)
         ).distinct()
         return product_list
 
@@ -161,6 +147,7 @@ def category_page(request, slug):
         'category': category
     })
 
+
 def manufacturer_page(request, slug):
     categories = Category.objects.all()
     if slug == 'no_manufacturer':
@@ -178,37 +165,3 @@ def manufacturer_page(request, slug):
         'manufacturer': manufacturer,
         'categories': categories
     })
-#
-# def tag_page(request, slug):
-#
-#     tag = Tag.objects.get(slug=slug)
-#     post_list =tag.post_set.all()  # Post.objects.filter(tags=tag)
-#
-#     return render(request, 'blog/post_list.html',{
-#
-#         'post_list' : post_list,
-#         'categories' : Category.objects.all(),
-#         'no_category_post_count' : Product.objects.filter(category=None).count(),
-#         'tag' : tag
-#     })
-
-#
-# def product_in_category(request, category_slug=None):
-#     current_category = None
-#     categories = Category.objects.all()
-#     products = Product.objects.filter(available_display=True)
-#     if category_slug:
-#         current_category = get_object_or_404(Category, slug=category_slug)
-#         products = products.filter(category=current_category)
-#     return render(request, 'product/product_list.html',
-#                   {
-#                       'current_category':current_category,
-#                       'categories':categories,
-#                       'products':products
-#                   })
-#
-
-
-# def product_detail(request, pk, product_slug=None):
-#     product = get_object_or_404(Product, pk=pk, slug=product_slug)
-#     return render(request, 'product/product_detail.html', {'product':product})

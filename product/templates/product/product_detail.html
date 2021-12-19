@@ -46,68 +46,57 @@
                                 alt="random image">
                     {% endif %}
                     <div class="col-md-6">
-                        {% if product.category %}
-                            <span class="badge bg-secondary float-right">{{product.category}}</span>
+                        <row>
+                            {% if product.category %}
+                                <span class="badge bg-secondary float-right" style="display:inline-block; height:30px; width:80px; font-size: 12pt">{{product.category}}</span>
                             {% else %}
-                            <span class="badge bg-secondary float-right">미분류</span>
+                                <span class="badge bg-secondary float-right" style="display:inline-block; height:30px; width:80px; font-size: 12pt">미분류</span>
                             {% endif %}
+
+                            {% if product.manufacturer %}
+                                <span class="badge bg-success float-right" style="display:inline-block; height:30px; width:80px; font-size: 12pt">{{product.manufacturer}}</span>
+                            {% else %}
+                                <span class="badge bg-success float-right" style="display:inline-block; height:30px; width:80px; font-size: 12pt">미분류</span>
+                            {% endif %}
+                        </row>
+
                         <h1 class="display-5 fw-bolder mt-3" style="color:black">{{product.name}}</h1>
-                        {% if product.manufacturer %}
-                        <h5 class="display-5 fw-bolder mt-3" style="color:black">{{product.manufacturer}}</h5>
-                        {% else %}
-                        <h5 class="display-5 fw-bolder mt-3" style="color:black">미분류</h5>
-                        {% endif %}
-                        <div class="fs-5 mb-5">
-                            <span>{{product.price}}원</span>
-                        </div>
-                        <p class="lead">{{product.get_content_markdown | safe}}</p>
-<!--                        <div class="d-flex">-->
-<!--                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />-->
-<!--                            <button class="btn btn-outline-dark flex-shrink-0" type="button">-->
-<!--                                <i class="bi-cart-fill me-1"></i>-->
-<!--                                Add to cart-->
-<!--                            </button>-->
+
+                        <h4 class="display-5 fw-bolder mt-3 my-5" style="color:black; font-size:2em">{{product.price}}원</h4>
+<!--                        <div class="fs-5 mb-5 pt-3">-->
+<!--                            <span>{{product.price}}원</span>-->
 <!--                        </div>-->
 
-                                {% if user.is_authenticated %}
-                                    {% if user.is_staff or user.is_superuser %}
-                                        <a href="/product/update_product/{{product.id}}/"
-                                            class="btn btn-info btn-sm float-right" style="background-color:#F6E1C5; border-color:#E6A756">
-                                            <i class="fas fa-pen"></i>
-                                            Edit Post
-                                        </a>
-                                    {% endif %}
-                                {% endif %}
+                        <div class="intro-text left-0 text-center bg-faded2 p-4 rounded pt-1" style="background:rgba(246,225,197,0.5)">
+                            <p class="lead" style="text-align:left">{{product.get_content_markdown | safe}}</p>
+                        </div>
+
+
+
+
+                            <!-- 찜하기 -->
+                        {% if user.is_authenticated %}
+                            <form class="mb-4" method="POST" action="{{product.get_absolute_url}}new_cart/">
+                            {% csrf_token %}
+                                <button type="submit" class="btn btn-primary my-3 mt-3 mb-0" style="background-color:#F6E1C5; border-color:#E6A756">찜하기</button>
+                            </form>
+                        {% endif %}
+
+                        <!-- edit -->
+                        {% if user.is_authenticated %}
+                            {% if user.is_staff or user.is_superuser %}
+                                <a href="/product/update_product/{{product.id}}/"
+                                    class="btn btn-info btn-sm float-right" style="background-color:#F6E1C5; border-color:#E6A756">
+                                    <i class="fas fa-pen"></i>
+                                    Edit Post
+                                </a>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
-<!--                &lt;!&ndash; Post content&ndash;&gt;-->
-<!--                        <section class="mb-5">-->
-<!--                            <p> {{ post.get_cntent_markdown | safe }} </p>-->
-<!--                            {% if post.tags.exists %}-->
-<!--                              <i class="fas fa-tags"></i>-->
-<!--                                {% for tag in post.tags.all %}-->
-<!--                                    <a href="tag.get_absolute_url"><span class="badge bg-light">{{tag}}</span></a>-->
-<!--                                {% endfor %}-->
-<!--                              <br/><br/>-->
 
-<!--                              {% endif %}-->
-
-<!--                            {% if post.file_upload %}-->
-<!--                                <a href="{{post.file_upload.url}}" role="button" class="btn btn-outline-dark" download>Download</a>-->
-<!--                                    Download :-->
-<!--                                    {% if post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}-->
-<!--                                        <i class="fas fa-file-excel"></i>-->
-<!--                                    {% elif post.get_file_ext == 'docx' or post.get_file_ext == 'dox' %}-->
-<!--                                        <i class="fas fa-file-word"></i>-->
-<!--                                    {% else %}-->
-<!--                                        <i class="fas fa-file"></i>-->
-<!--                                    {% endif %}-->
-<!--                                    {{ post.get_file_name }}-->
-<!--                            {% endif %}-->
-<!--                        </section>-->
-<!--                    </div>-->
                     <!-- Comments section-->
-                                        <div class="mb-5 my-5" id="comment-area">
+                <div class="mb-5 my-5" id="comment-area">
                         <div class="card bg-light">
                             <div class="card-body">
                                 <!-- Comment form-->

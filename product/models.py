@@ -7,16 +7,6 @@ from django.contrib.auth.models import User
 from django_markdown.utils import markdown
 from markdownx.models import MarkdownxField
 
-# class Tag(models.Model):
-#     name = models.CharField(max_length=50,unique=True)
-#     slug = models.SlugField(max_length=200,unique=True,allow_unicode=True)
-#
-#     def __str__(self):
-#         return self.name
-#
-#     def get_absolute_url(self):
-#         return f'/blog/tag/{self.slug}'
-
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True, db_index=True)
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
@@ -89,3 +79,13 @@ class Comment(models.Model):
             return self.author.socialaccount_set.first().get_avatar_url()
         else :
             return 'https://doitdjango.com/avatar/id/435/34def6c20b3733a7/svg/{self.author.email}/'
+
+class Cart(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.author}::{self.product.name}'
+
+    def get_absolute_url(self):
+        return f'{self.product.get_absolute_url()}'

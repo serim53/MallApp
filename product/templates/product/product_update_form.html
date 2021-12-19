@@ -34,14 +34,6 @@
         <form method="post" enctype="multipart/form-data"  style="background-color:white;">
     {% csrf_token %}
         {{form | crispy}}
-<!--        <div id="div_id_tags_str">-->
-<!--            <label for="id_tags_str">Tags:</label>-->
-<!--            <input type="text" name="tags_str"-->
-<!--                   class="textinput textInput form-control"-->
-<!--                   value="{{tag_str_default}}"-->
-<!--                   required id="id_tags_str">-->
-
-<!--        </div>-->
 
         <br>
         <button type="submit" class="btn btn-primary float-right">Submit</button>

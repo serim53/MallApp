@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from product.models import Product, Category, Comment
+from product.models import Product, Category, Comment, Cart
 
 
 def landing(request):
@@ -12,10 +12,13 @@ def landing(request):
 
 
 def mypage(request):
+    recent_carts = Cart.objects.order_by('-pk')
     categories = Category.objects.all()
     recent_comments = Comment.objects.order_by('-pk')
     return render(request, 'single_pages/mypage.html',
-                  {'recent_comments':recent_comments, 'categories': categories})
+                  {'recent_comments':recent_comments,
+                   'categories': categories,
+                   'recent_carts':recent_carts})
 
 def about(request):
     categories = Category.objects.all()
